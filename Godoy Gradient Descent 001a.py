@@ -729,4 +729,25 @@ bs, ws = np.meshgrid(b_range, w_range)
 bs.shape, ws.shape
 
 
+sample_x = x_train[0]
+sample_yhat = bs + ws * sample_x
+print(sample_yhat.shape)
 
+
+all_predictions = np.apply_along_axis(
+    func1d=lambda x: bs + ws * x, 
+    axis=1, 
+    arr=x_train
+)
+all_predictions.shape
+
+
+all_labels = y_train.reshape(-1, 1, 1)
+all_labels.shape
+
+all_errors = (all_predictions - all_labels)
+all_errors.shape
+all_losses = (all_errors ** 2).mean(axis=0)
+all_losses.shape
+
+figure4(x_train, y_train, b, w, bs, ws, all_losses)
